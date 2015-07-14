@@ -47,7 +47,28 @@ node default {
     ensure => installed,
   }
 
+  package { 'python-gpgme':
+    ensure => installed,
+    before => Package['dropbox'],
+  }
+
   package { 'dropbox':
+    ensure => installed,
+  }
+
+  package { 'zsh':
+    ensure => installed,
+  }
+
+  package { 'tmux':
+    ensure => installed,
+  }
+
+  package { 'texlive':
+    ensure => installed,
+  }
+
+  package { 'texinfo':
     ensure => installed,
   }
 
