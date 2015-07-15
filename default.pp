@@ -19,6 +19,26 @@ node default {
     ensure => installed,
   }
 
+  package { 'bzr':
+    ensure => installed,
+  }
+
+  package { 'mercurial':
+    ensure => installed,
+  }
+
+  package { 'cvs':
+    ensure => installed,
+  }
+
+  package { 'build-essential':
+    ensure => installed,
+  }
+
+  package { 'autoconf':
+    ensure => installed,
+  }
+
   package { 'ssh':
     ensure => installed,
   }
@@ -28,6 +48,10 @@ node default {
   }
 
   package { 'pcscd':
+    ensure => installed,
+  }
+
+  package { 'vim-gtk':
     ensure => installed,
   }
 
@@ -68,7 +92,27 @@ node default {
     ensure => installed,
   }
 
+  package { 'texlive-latex-extra':
+    ensure => installed,
+  }
+
+  package { 'texlive-science':
+    ensure => installed,
+  }
+
   package { 'texinfo':
+    ensure => installed,
+  }
+
+  package { 'curl':
+    ensure => installed,
+  }
+
+  package { 'cifs-utils':
+    ensure => installed,
+  }
+
+  package { 'winbind':
     ensure => installed,
   }
 
