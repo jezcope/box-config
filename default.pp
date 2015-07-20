@@ -63,16 +63,18 @@ node default {
   }
 
   package {
-    ['aptitude', 'git', 'bzr', 'mercurial', 'cvs',
+    ['aptitude', 'git', 'bzr', 'mercurial', 'cvs', 'puppet-lint',
      'build-essential',
      'autoconf',
      'ssh',
      'gnupg2', 'scdaemon', 'pcscd',
+     'keychain',
      'vim-gtk', 'emacs24',
      'chromium-browser',
      'ruby',
      'python3',
      'python-gpgme',
+     'python-pip',
      'dropbox',
      'rxvt-unicode',
      'zsh',
