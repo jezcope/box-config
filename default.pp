@@ -83,6 +83,7 @@ node default {
      'texlive-science',
      'texinfo',
      'latexmk',
+     'ttf-mscorefonts-installer',
      'curl',
      'cifs-utils',
      'winbind',
@@ -99,6 +100,13 @@ node default {
   }
 
   Package['python-gpgme'] -> Package['dropbox']
+
+  exec { 'accept mscorefonts license':
+    command => 'echo "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula boolean true" | debconf-set-selections',
+    provider => shell,
+    unless => "debconf-get-selections|grep -E 'msttcorefonts/accepted-mscorefonts-eula.*true' > /dev/null",
+    before => Package['ttf-mscorefonts-installer'];
+  }
 
   file { '/opt/lplinux':
     ensure => directory;
