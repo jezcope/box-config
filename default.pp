@@ -1,9 +1,56 @@
+class dotfiles {
+
+  $box_dotfiles = "$box_homedir/.dotfiles"
+
+  $dotlinks = ['zshrc', 'zshenv', 'zsh', 'vimrc', 'vim', 'emacs.d',
+               'pentadactyl', 'pentadactylrc', 'xmonad', 'gitconfig',
+               'gitignore.global', 'htmltidy.conf', 'ackrc', 'keysnail.js']
+  $otherlinks = {
+    'gpg.conf'      => '.gnupg/gpg.conf',
+    'dirmngr.conf'  => '.gnupg/dirmngr.conf',
+    'scdaemon.conf' => '.gnupg/scdaemon.conf',
+    'certs'         => '.gnupg/certs',
+    'awesomerc.lua' => '.config/awesome/rc.lua',
+    'texmf'         => 'texmf',
+    'sharedbin'     => 'bin/shared',
+  }
+
+  vcsrepo { $box_dotfiles:
+    ensure   => present,
+    provider => git,
+    source   => 'git@github.com:jezcope/dotfiles.git',
+    require  => Package['git'],
+    user     => $box_username,
+  }
+
+  $dotlinks.each |String $file| {
+    file { "$box_homedir/.${file}":
+      target => "$box_dotfiles/${file}",
+      ensure => link,
+      owner  => $box_username,
+      group  => $box_usergrp,
+    }
+  }
+
+  $otherlinks.each |String $target, String $location| {
+    file { "$box_homedir/${location}":
+      target => "$box_dotfiles/$target",
+      ensure => link,
+      owner  => $box_username,
+      group  => $box_usergrp,
+    }
+  }
+
+}
+
 node default {
   include apt
-  #include vcsrepo
 
   $box_username = jez
   $box_usergrp = $box_username
+  $box_homedir = "/home/$box_username"
+
+  class { 'dotfiles': }
 
   apt::source { 'dropbox':
     location => 'http://linux.dropbox.com/ubuntu',
@@ -14,7 +61,7 @@ node default {
     },
     before => Package['dropbox'],
   }
-  
+
   package {
     ['aptitude', 'git', 'bzr', 'mercurial', 'cvs',
      'build-essential',
@@ -52,14 +99,6 @@ node default {
   }
 
   Package['python-gpgme'] -> Package['dropbox']
-
-  vcsrepo { "/home/$box_username/.dotfiles":
-    ensure => present,
-    provider => git,
-    source => 'git@github.com:jezcope/dotfiles.git',
-    require => Package['git'],
-    user => $box_username,
-  }
 
   file { '/opt/lplinux':
     ensure => directory;
