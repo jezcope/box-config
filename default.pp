@@ -61,10 +61,27 @@ node default {
     user => $box_username,
   }
 
-  exec { 'fetch Input font':
-    command => 'wget -O /opt/Input-Font.zip "http://input.fontbureau.com/build/?customize&fontSelection=whole&a=ss&g=ss&i=serifs&l=0&zero=slash&asterisk=0&braces=straight&preset=default&line-height=1.2&accept=I+do&email="',
-    path => '/usr/bin',
-    creates => '/opt/Input-Font.zip',
+  exec {
+    default:
+      path => '/bin:/usr/bin';
+    'fetch Input font':
+      command => 'wget -O /opt/Input-Font.zip "http://input.fontbureau.com/build/?customize&fontSelection=whole&a=ss&g=ss&i=serifs&l=0&zero=slash&asterisk=0&braces=straight&preset=default&line-height=1.2&accept=I+do&email="',
+      creates => '/opt/Input-Font.zip';
+    'fetch Goudy Bookletter 1911 font':
+      command => 'wget -O /opt/Goudy-Bookletter-1911.zip "http://www.fontsquirrel.com/fonts/download/Goudy-Bookletter-1911"',
+      creates => '/opt/Goudy-Bookletter-1911.zip';
+    'extract Input font':
+      command => 'unzip /opt/Input-Font.zip -d /usr/share/fonts/opentype Input_Fonts/\*',
+      creates => '/usr/share/fonts/opentype/Input_Fonts',
+      subscribe => Exec['fetch Goudy Bookletter 1911 font'],
+      notify => Exec['update font cache'];
+    'extract Goudy Bookletter 1911 font':
+      command => 'unzip /opt/Goudy-Bookletter-1911.zip -d /usr/share/fonts/opentype goudy_bookletter_1911.otf',
+      creates => '/usr/share/fonts/opentype/goudy_bookletter_1911.otf',
+      subscribe => Exec['fetch Goudy Bookletter 1911 font'],
+      notify => Exec['update font cache'];
+    'update font cache':
+      command => 'fc-cache -s';
   }
 
 }
