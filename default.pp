@@ -43,6 +43,15 @@ class dotfiles {
 
 }
 
+class graphical {
+
+  package {
+    ['xscreensaver', 'xscreensaver-gl', 'xscreensaver-gl-extra']:
+      ensure => present;
+  }
+
+}
+
 node default {
   include apt
 
@@ -51,6 +60,7 @@ node default {
   $box_homedir = "/home/$box_username"
 
   class { 'dotfiles': }
+  class { 'graphical': }
 
   apt::source { 'dropbox':
     location => 'http://linux.dropbox.com/ubuntu',
@@ -97,7 +107,6 @@ node default {
      'curl',
      'cifs-utils',
      'winbind',
-     'xscreensaver',
      'skype',
      'workrave']:
        ensure => installed;
