@@ -88,10 +88,11 @@ node default {
      'python-gpgme',
      'python-pip',
      'ipython', 'ipython-notebook', 'ipython3', 'ipython3-notebook',
-     'libgmime-2.6-dev', 'libxapian-dev', # for mu4e
+     'libgmime-2.6-dev', 'libxapian-dev', 'html2text', # for mu4e
      'yubikey-personalization', 'yubikey-personalization-gui',
      'libreoffice-gtk', 'libreoffice-calc', 'libreoffice-writer', 'libreoffice-impress', 'libreoffice-draw',
      'abiword',
+     'pandoc',
      'dropbox',
      'rxvt-unicode',
      'zsh',
@@ -108,6 +109,7 @@ node default {
      'cifs-utils',
      'winbind',
      'skype',
+     'mpc',
      'workrave']:
        ensure => installed;
   }
