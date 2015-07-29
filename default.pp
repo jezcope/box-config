@@ -23,6 +23,14 @@ class dotfiles {
     user     => $box_username,
   }
 
+  [".gnupg", "bin", ".config/awesome"].each |String $dir| {
+    file { "$box_homedir/$dir":
+      ensure => directory,
+      owner => $box_username,
+      group => $box_usergrp,
+    }
+  }
+
   $dotlinks.each |String $file| {
     file { "$box_homedir/.${file}":
       target => "$box_dotfiles/${file}",
@@ -45,15 +53,34 @@ class dotfiles {
 
 class graphical {
 
+  apt::source { 'partner':
+    location => 'http://archive.canonical.com/',
+    repos => 'partner',
+    before => Package['skype'],
+  }
+
+  apt::source { 'mopidy':
+    location => 'http://apt.mopidy.com/',
+    release => 'stable',
+    repos => 'main contrib non-free',
+    before => [Package['mopidy'], Package['mopidy-spotify']],
+    key => {
+      id => '9E36464A7C030945EEB7632878FD980E271D2943',
+      source => 'https://apt.mopidy.com/mopidy.gpg',
+    },
+  }
+
   package {
-    ['xscreensaver', 'xscreensaver-gl', 'xscreensaver-gl-extra']:
+    ['xscreensaver', 'xscreensaver-gl', 'xscreensaver-gl-extra',
+     'skype', 'pidgin',
+     'mopidy', 'mopidy-spotify', 'ncmpcpp', 'mpc',
+     ]:
       ensure => present;
   }
 
 }
 
 node default {
-  include apt
 
   $box_username = jez
   $box_usergrp = $box_username
@@ -61,6 +88,12 @@ node default {
 
   class { 'dotfiles': }
   class { 'graphical': }
+
+  class { 'apt':
+    update => {
+      frequency => daily,
+    },
+  }
 
   apt::source { 'dropbox':
     location => 'http://linux.dropbox.com/ubuntu',
@@ -97,6 +130,7 @@ node default {
      'rxvt-unicode',
      'zsh',
      'tmux',
+     'maildir-utils',
      'texlive',
      'texlive-latex-extra',
      'texlive-xetex',
@@ -108,8 +142,6 @@ node default {
      'curl',
      'cifs-utils',
      'winbind',
-     'skype',
-     'mpc',
      'workrave']:
        ensure => installed;
   }
@@ -165,7 +197,7 @@ node default {
     'install lastpass binary bundle':
       command => '/opt/lplinux/install_lastpass.sh',
       user => $box_username,
-      creates => '/etc/chromium/native-messaging-hosts/',
+      creates => "$box_homedir/.config/chromium/NativeMessagingHosts/",
       require => Exec['extract lastpass binary bundle'];
   }
 
