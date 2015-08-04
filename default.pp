@@ -110,6 +110,7 @@ node default {
      'build-essential',
      'autoconf',
      'ssh', 'lftp',
+     'ack-grep', 'silversearcher-ag',
      'gnupg2', 'scdaemon', 'pcscd', 'libpcsclite-dev',
      'keychain',
      'vim-gtk', 'emacs24-lucid',
