@@ -1,93 +1,12 @@
-class dotfiles {
-
-  $box_dotfiles = "$box_homedir/.dotfiles"
-
-  $dotlinks = ['zshrc', 'zshenv', 'zsh', 'vimrc', 'vim', 'emacs.d',
-               'pentadactyl', 'pentadactylrc', 'xmonad', 'gitconfig',
-               'gitignore.global', 'htmltidy.conf', 'ackrc', 'keysnail.js']
-  $otherlinks = {
-    'gpg.conf'      => '.gnupg/gpg.conf',
-    'dirmngr.conf'  => '.gnupg/dirmngr.conf',
-    'scdaemon.conf' => '.gnupg/scdaemon.conf',
-    'certs'         => '.gnupg/certs',
-    'awesomerc.lua' => '.config/awesome/rc.lua',
-    'texmf'         => 'texmf',
-    'sharedbin'     => 'bin/shared',
-  }
-
-  vcsrepo { $box_dotfiles:
-    ensure   => present,
-    provider => git,
-    source   => 'git@github.com:jezcope/dotfiles.git',
-    require  => Package['git'],
-    user     => $box_username,
-  }
-
-  [".gnupg", "bin", ".config/awesome"].each |String $dir| {
-    file { "$box_homedir/$dir":
-      ensure => directory,
-      owner => $box_username,
-      group => $box_usergrp,
-    }
-  }
-
-  $dotlinks.each |String $file| {
-    file { "$box_homedir/.${file}":
-      target => "$box_dotfiles/${file}",
-      ensure => link,
-      owner  => $box_username,
-      group  => $box_usergrp,
-    }
-  }
-
-  $otherlinks.each |String $target, String $location| {
-    file { "$box_homedir/${location}":
-      target => "$box_dotfiles/$target",
-      ensure => link,
-      owner  => $box_username,
-      group  => $box_usergrp,
-    }
-  }
-
-}
-
-class graphical {
-
-  apt::source { 'partner':
-    location => 'http://archive.canonical.com/',
-    repos => 'partner',
-    before => Package['skype'],
-  }
-
-  apt::source { 'mopidy':
-    location => 'http://apt.mopidy.com/',
-    release => 'stable',
-    repos => 'main contrib non-free',
-    before => [Package['mopidy'], Package['mopidy-spotify']],
-    key => {
-      id => '9E36464A7C030945EEB7632878FD980E271D2943',
-      source => 'https://apt.mopidy.com/mopidy.gpg',
-    },
-  }
-
-  package {
-    ['xscreensaver', 'xscreensaver-gl', 'xscreensaver-gl-extra',
-     'skype', 'pidgin',
-     'mopidy', 'mopidy-spotify', 'ncmpcpp', 'mpc',
-     ]:
-      ensure => present;
-  }
-
-}
-
 node default {
 
   $box_username = jez
   $box_usergrp = $box_username
   $box_homedir = "/home/$box_username"
 
-  class { 'dotfiles': }
-  class { 'graphical': }
+  include boxroles::base
+  include boxutils::dotfiles
+  include boxroles::graphical
 
   class { 'apt':
     update => {
