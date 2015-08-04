@@ -110,7 +110,7 @@ node default {
      'build-essential',
      'autoconf',
      'ssh', 'lftp',
-     'gnupg2', 'scdaemon', 'pcscd',
+     'gnupg2', 'scdaemon', 'pcscd', 'libpcsclite-dev',
      'keychain',
      'vim-gtk', 'emacs24-lucid',
      'chromium-browser', 'firefox',
@@ -163,6 +163,12 @@ node default {
 
   file { '/opt/lplinux':
     ensure => directory;
+  }
+
+  file { '/usr/lib/libpcsclite.so':
+    ensure => link,
+    target => '/usr/lib/x86_64-linux-gnu/libpcsclite.so',
+    require => Package['libpcsclite-dev'];
   }
 
   exec {
