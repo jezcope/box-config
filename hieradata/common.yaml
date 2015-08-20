@@ -1,0 +1,9 @@
+---
+username: jez
+usergrp:  jez
+homedir:  /home/jez
+classes:
+  - boxroles::base
+  - boxutils::dotfiles
+apt::update:
+  frequency: daily

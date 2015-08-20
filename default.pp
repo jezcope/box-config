@@ -1,17 +1,5 @@
-node default {
+$box_username = hiera("username", "jez")
+$box_usergrp  = hiera("usergrp",  $box_username)
+$box_homedir  = hiera("homedir",  "/home/$box_username")
 
-  $box_username = jez
-  $box_usergrp = $box_username
-  $box_homedir = "/home/$box_username"
-
-  include boxroles::base
-  include boxutils::dotfiles
-  include boxroles::graphical
-
-  class { 'apt':
-    update => {
-      frequency => daily,
-    },
-  }
-
-}
+hiera_include('classes')
