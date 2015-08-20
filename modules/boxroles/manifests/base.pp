@@ -1,5 +1,6 @@
 class boxroles::base {
 
+  include boxutils::dotfiles
   include boxroles::fonts
 
   apt::source { 'dropbox':
