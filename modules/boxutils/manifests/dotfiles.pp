@@ -18,16 +18,18 @@ class boxutils::dotfiles {
   vcsrepo { $box_dotfiles:
     ensure   => present,
     provider => git,
-    source   => 'git@github.com:jezcope/dotfiles.git',
-    require  => Package['git'],
+    source   => 'https://github.com/jezcope/dotfiles.git',
+    require  => [User[$box_username], File[$box_homedir], Package['git']],
     user     => $box_username,
+    alias    => 'dotfiles',
   }
 
-  [".gnupg", "bin", ".config/awesome"].each |String $dir| {
+  [".gnupg", "bin", ".config", ".config/awesome"].each |String $dir| {
     file { "$box_homedir/$dir":
       ensure => directory,
       owner => $box_username,
       group => $box_usergrp,
+      require => Vcsrepo['dotfiles'],
     }
   }
 
@@ -37,6 +39,7 @@ class boxutils::dotfiles {
       ensure => link,
       owner  => $box_username,
       group  => $box_usergrp,
+      require => Vcsrepo['dotfiles'],
     }
   }
 
@@ -46,6 +49,7 @@ class boxutils::dotfiles {
       ensure => link,
       owner  => $box_username,
       group  => $box_usergrp,
+      require => Vcsrepo['dotfiles'],
     }
   }
 

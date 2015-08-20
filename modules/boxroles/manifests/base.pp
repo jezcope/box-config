@@ -1,16 +1,17 @@
 class boxroles::base {
 
+  include apt
   include boxutils::dotfiles
   include boxroles::fonts
 
-  apt::source { 'dropbox':
-    location => 'http://linux.dropbox.com/ubuntu',
-    repos => 'main',
-    key => {
-      id => '1C61A2656FB57B7E4DE0F4C1FC918B335044912E',
-      server => 'pgp.mit.edu',
-    },
-    before => Package['dropbox'],
+  user { $box_username:
+    ensure => present,
+  }
+
+  file { $box_homedir:
+    ensure => directory,
+    owner => $box_username,
+    group => $box_usergrp,
   }
 
   package {
@@ -50,8 +51,6 @@ class boxroles::base {
     ['gawk', 'libreadline6-dev', 'zlib1g-dev', 'libssl-dev', 'libyaml-dev', 'libsqlite3-dev', 'sqlite3', 'libgdbm-dev', 'libncurses5-dev', 'libtool', 'bison', 'pkg-config', 'libffi-dev']:
       ensure => installed;
   }
-
-  Package['python-gpgme'] -> Package['dropbox']
 
   file { '/usr/lib/libpcsclite.so':
     ensure => link,

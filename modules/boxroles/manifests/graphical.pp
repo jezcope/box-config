@@ -1,19 +1,28 @@
 class boxroles::graphical {
 
+  include apt
+
   apt::source { 'partner':
     location => 'http://archive.canonical.com/',
     repos => 'partner',
-    before => Package['skype'],
   }
 
   apt::source { 'mopidy':
     location => 'http://apt.mopidy.com/',
     release => 'stable',
     repos => 'main contrib non-free',
-    before => [Package['mopidy'], Package['mopidy-spotify']],
     key => {
       id => '9E36464A7C030945EEB7632878FD980E271D2943',
       source => 'https://apt.mopidy.com/mopidy.gpg',
+    },
+  }
+
+  apt::source { 'dropbox':
+    location => 'http://linux.dropbox.com/ubuntu',
+    repos => 'main',
+    key => {
+      id => '1C61A2656FB57B7E4DE0F4C1FC918B335044912E',
+      server => 'pgp.mit.edu',
     },
   }
 
@@ -33,6 +42,8 @@ class boxroles::graphical {
       ensure => present;
   }
 
+  Package['python-gpgme'] -> Package['dropbox']
+
   file { '/opt/lplinux':
     ensure => directory;
   }
@@ -46,7 +57,7 @@ class boxroles::graphical {
     'extract lastpass binary bundle':
       command => 'tar -xf /opt/lplinux.tar.bz2 -C /opt/lplinux',
       creates => '/opt/lplinux/install_lastpass.sh',
-      require => [File['/opt/lplinux'], Exec['fetch lastpass binary bundle']],
+      require => [Package['unzip'], File['/opt/lplinux'], Exec['fetch lastpass binary bundle']],
       before => Exec['install lastpass binary bundle'];
     'install lastpass binary bundle':
       command => '/opt/lplinux/install_lastpass.sh',
