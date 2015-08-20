@@ -1,7 +1,13 @@
 class boxroles::fonts {
 
+  apt::source { 'multiverse':
+    location => 'http://archive.ubuntu.com/ubuntu',
+    repos => 'multiverse',
+  }
+
   package {
     [
+     'unzip',
      'fonts-texgyre', 'fonts-crosextra-caladea', 'fonts-crosextra-carlito',
      'ttf-mscorefonts-installer',
      ]:
@@ -28,13 +34,16 @@ class boxroles::fonts {
       command => 'unzip /opt/Input-Font.zip -d /usr/share/fonts/opentype Input_Fonts/\*',
       creates => '/usr/share/fonts/opentype/Input_Fonts',
       subscribe => Exec['fetch Goudy Bookletter 1911 font'],
+      require => Package['unzip'],
       notify => Exec['update font cache'];
     'extract Goudy Bookletter 1911 font':
       command => 'unzip /opt/Goudy-Bookletter-1911.zip -d /usr/share/fonts/opentype goudy_bookletter_1911.otf',
       creates => '/usr/share/fonts/opentype/goudy_bookletter_1911.otf',
       subscribe => Exec['fetch Goudy Bookletter 1911 font'],
+      require => Package['unzip'],
       notify => Exec['update font cache'];
     'update font cache':
-      command => 'fc-cache -s';
+      command => 'fc-cache -s',
+      refreshonly => true;
   }
 }
