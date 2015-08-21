@@ -50,5 +50,10 @@ class boxutils::dotfiles {
     }
   }
 
+  file { "$box_homedir/.config/awesome/localprefs.lua":
+    source => "$box_dotfiles/awesome_localprefs_example.lua",
+    replace => no,
+  }
+
 }
 
