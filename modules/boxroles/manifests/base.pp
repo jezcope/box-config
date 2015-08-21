@@ -16,7 +16,8 @@ class boxroles::base {
 
   package {
     ['ldap-utils',
-     'aptitude', 'git', 'bzr', 'mercurial', 'cvs', 'puppet-lint',
+     'aptitude', 'git', 'bzr', 'mercurial', 'cvs',
+     'librarian-puppet', 'puppet-lint',
      'build-essential',
      'autoconf',
      'ssh', 'lftp',
