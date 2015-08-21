@@ -20,6 +20,8 @@ class boxroles::base {
      'build-essential',
      'autoconf',
      'ssh', 'lftp',
+     'unison',
+     'apg',
      'ack-grep', 'silversearcher-ag',
      'gnupg2', 'scdaemon', 'pcscd', 'libpcsclite-dev',
      'keychain',
