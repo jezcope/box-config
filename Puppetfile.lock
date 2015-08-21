@@ -4,9 +4,7 @@ FORGE
     puppetlabs/apt (2.1.0)
       puppetlabs/stdlib (< 5.0.0, >= 4.5.0)
     puppetlabs/stdlib (4.6.0)
-    puppetlabs/vcsrepo (1.3.0)
 
 DEPENDENCIES
   puppetlabs/apt (>= 0)
-  puppetlabs/vcsrepo (>= 0)
 

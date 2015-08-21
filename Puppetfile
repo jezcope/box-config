@@ -7,7 +7,6 @@ forge "http://forge.puppetlabs.com"
 #modulefile
 
 mod 'puppetlabs/apt'
-mod 'puppetlabs/vcsrepo'
 
 # mod 'ntp',
 #   :git => 'git://github.com/puppetlabs/puppetlabs-ntp.git'

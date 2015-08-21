@@ -15,13 +15,10 @@ class boxutils::dotfiles {
     'sharedbin'     => 'bin/shared',
   }
 
-  vcsrepo { $box_dotfiles:
-    ensure   => present,
-    provider => git,
-    source   => 'https://github.com/jezcope/dotfiles.git',
-    require  => [User[$box_username], File[$box_homedir], Package['git']],
-    user     => $box_username,
-    alias    => 'dotfiles',
+  exec { 'git clone dotfiles':
+    command => "/usr/bin/git clone https://github.com/jezcope/dotfiles.git $box_dotfiles",
+    creates => $box_dotfiles,
+    user => $box_username,
   }
 
   [".gnupg", "bin", ".config", ".config/awesome"].each |String $dir| {
@@ -29,7 +26,7 @@ class boxutils::dotfiles {
       ensure => directory,
       owner => $box_username,
       group => $box_usergrp,
-      require => Vcsrepo['dotfiles'],
+      require => Exec['git clone dotfiles'],
     }
   }
 
@@ -39,7 +36,7 @@ class boxutils::dotfiles {
       ensure => link,
       owner  => $box_username,
       group  => $box_usergrp,
-      require => Vcsrepo['dotfiles'],
+      require => Exec['git clone dotfiles'],
     }
   }
 
@@ -49,7 +46,7 @@ class boxutils::dotfiles {
       ensure => link,
       owner  => $box_username,
       group  => $box_usergrp,
-      require => Vcsrepo['dotfiles'],
+      require => Exec['git clone dotfiles'],
     }
   }
 
