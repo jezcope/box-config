@@ -40,6 +40,7 @@ class boxroles::graphical {
      'dropbox', 'python-gpgme',
      'workrave',
      'rxvt-unicode',
+     'font-manager',
      ]:
       ensure => present;
   }
