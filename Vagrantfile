@@ -7,10 +7,16 @@
 # you're doing.
 Vagrant.configure(2) do |config|
 
-  config.vm.box = "ubuntu/vivid64"
-  config.vm.hostname = "box-config.test.dev"
-
   config.vm.synced_folder ".", "/etc/puppet"
-  config.vm.provision "shell", path: 'bootstrap.sh'
+
+  config.vm.define "ubuntu" do |ubuntu|
+    config.vm.box = "ubuntu/vivid64"
+    config.vm.hostname = "ubuntu.box-config.dev"
+  end
+
+  config.vm.define "arch" do |arch|
+    config.vm.box = "ogarcia/archlinux-201508-x64"
+    config.vm.hostname = "arch.box-config.dev"
+  end
 
 end
