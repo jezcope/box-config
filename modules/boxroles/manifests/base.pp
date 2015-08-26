@@ -1,8 +1,12 @@
 class boxroles::base {
 
-  include apt
   include boxutils::dotfiles
   include boxroles::fonts
+
+  case $::osfamily {
+    'Arch':   { include boxutils::arch }
+    'Debian': { include boxutils::debian }
+  }
 
   user { $box_username:
     ensure => present,
@@ -14,13 +18,22 @@ class boxroles::base {
     group => $box_usergrp,
   }
 
+  $p_ssh = $::osfamily ? {
+    'Debian' => 'ssh', 'Archlinux' => 'openssh',
+  }
+  $p_xapian = $::osfamily ? {
+    'Debian' => 'libxapian-dev', 'Archlinux' => 'xapian-core',
+  }
+  $p_pandoc = $::osfamily ? {
+    'Ubuntu' => 'pandoc', 'Archlinux' => 'pandoc-bin',
+  }
+
   package {
     ['ldap-utils',
-     'aptitude', 'git', 'bzr', 'mercurial', 'cvs',
-     'librarian-puppet', 'puppet-lint',
-     'build-essential',
+     'git', 'bzr', 'mercurial', 'cvs',
+     # 'librarian-puppet', 'puppet-lint', TODO: install these as gems instead
      'autoconf',
-     'ssh', 'lftp',
+     $p_ssh, 'lftp',
      'unison',
      'apg',
      'ack-grep', 'silversearcher-ag',
@@ -31,8 +44,8 @@ class boxroles::base {
      'python3',
      'python-pip',
      'ipython', 'ipython-notebook', 'ipython3', 'ipython3-notebook',
-     'libgmime-2.6-dev', 'libxapian-dev', 'html2text', # for mu4e
-     'pandoc',
+     'libgmime-2.6-dev', $p_xapian, 'html2text', # for mu4e
+     $p_pandoc,
      'zsh',
      'tmux',
      'maildir-utils',

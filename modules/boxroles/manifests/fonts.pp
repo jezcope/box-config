@@ -1,8 +1,12 @@
 class boxroles::fonts {
 
-  apt::source { 'multiverse':
-    location => 'http://archive.ubuntu.com/ubuntu',
-    repos => 'multiverse',
+  case $::lsbdistid {
+    'Ubuntu': {
+      apt::source { 'multiverse':
+        location => 'http://archive.ubuntu.com/ubuntu',
+        repos => 'multiverse',
+      }
+    }
   }
 
   package {
