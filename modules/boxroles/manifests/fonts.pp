@@ -13,7 +13,7 @@ class boxroles::fonts {
     [
      'unzip',
      'fonts-texgyre', 'fonts-crosextra-caladea', 'fonts-crosextra-carlito',
-     'ttf-mscorefonts-installer',
+     'fonts-inconsolata', 'ttf-mscorefonts-installer',
      ]:
        ensure => present;
   }

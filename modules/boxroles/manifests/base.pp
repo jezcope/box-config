@@ -40,6 +40,7 @@ class boxroles::base {
      'gnupg2', 'scdaemon', 'pcscd', 'libpcsclite-dev',
      'keychain',
      'offlineimap',
+     'imagemagick',
      'ruby',
      'python3',
      'python-pip',
@@ -58,6 +59,7 @@ class boxroles::base {
      'curl',
      'cifs-utils',
      'winbind',
+     'qrencode',
      ]:
        ensure => present;
   }

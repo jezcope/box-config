@@ -28,7 +28,7 @@ class boxroles::graphical {
 
   package {
     ['xscreensaver', 'xscreensaver-gl', 'xscreensaver-gl-extra',
-     'emacs24-lucid', 'vim-gtk',
+     'emacs24', 'vim-gtk',
      'unison-gtk',
      'skype', 'pidgin',
      'mopidy', 'mopidy-spotify', 'ncmpcpp', 'mpc',
