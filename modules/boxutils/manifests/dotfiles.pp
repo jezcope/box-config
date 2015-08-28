@@ -3,7 +3,9 @@ class boxutils::dotfiles {
   $box_dotfiles = "$box_homedir/.dotfiles"
 
   $dotlinks = ['zshrc', 'zshenv', 'zsh', 'vimrc', 'vim', 'emacs.d',
-               'pentadactyl', 'pentadactylrc', 'xmonad', 'gitconfig',
+               'pentadactyl', 'pentadactylrc',
+               'vimperatorrc', 'vimperator',
+               'xmonad', 'gitconfig',
                'gitignore.global', 'htmltidy.conf', 'ackrc', 'keysnail.js']
   $otherlinks = {
     'gpg.conf'      => '.gnupg/gpg.conf',
