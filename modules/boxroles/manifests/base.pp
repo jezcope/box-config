@@ -24,8 +24,8 @@ class boxroles::base {
   $p_xapian = $::osfamily ? {
     'Debian' => 'libxapian-dev', 'Archlinux' => 'xapian-core',
   }
-  $p_pandoc = $::osfamily ? {
-    'Ubuntu' => 'pandoc', 'Archlinux' => 'pandoc-bin',
+  $p_pandoc = $::osfamily ? { # TODO: install pandoc from cabal instead
+    'Debian' => 'pandoc', 'Archlinux' => 'pandoc-bin',
   }
 
   package {
