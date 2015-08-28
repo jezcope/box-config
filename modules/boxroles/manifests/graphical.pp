@@ -39,8 +39,8 @@ class boxroles::graphical {
      'abiword',
      'dropbox', 'python-gpgme',
      'workrave',
-     'rxvt-unicode',
      'font-manager',
+     'sakura',
      ]:
       ensure => present;
   }
