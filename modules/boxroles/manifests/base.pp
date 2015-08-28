@@ -29,7 +29,8 @@ class boxroles::base {
   }
 
   package {
-    ['ldap-utils',
+    ['puppet', 'augeas-tools',
+     'ldap-utils',
      'git', 'bzr', 'mercurial', 'cvs',
      # 'librarian-puppet', 'puppet-lint', TODO: install these as gems instead
      'autoconf',
