@@ -28,6 +28,7 @@ class boxutils::dotfiles {
   [".gnupg", "bin", ".config", ".config/awesome"].each |String $dir| {
     file { "$box_homedir/$dir":
       ensure => directory,
+      force => true,
       owner => $box_username,
       group => $box_usergrp,
       require => Exec['git clone dotfiles'],
@@ -38,6 +39,7 @@ class boxutils::dotfiles {
     file { "$box_homedir/.${file}":
       target => "$box_dotfiles/${file}",
       ensure => link,
+      force => true,
       owner  => $box_username,
       group  => $box_usergrp,
       require => Exec['git clone dotfiles'],
@@ -48,6 +50,7 @@ class boxutils::dotfiles {
     file { "$box_homedir/${location}":
       target => "$box_dotfiles/$target",
       ensure => link,
+      force => true,
       owner  => $box_username,
       group  => $box_usergrp,
       require => Exec['git clone dotfiles'],
