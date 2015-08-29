@@ -16,6 +16,9 @@ class boxutils::dotfiles {
     'texmf'         => 'texmf',
     'sharedbin'     => 'bin/shared',
   }
+  $systemd_units = [
+    'gpg-agent.service',
+  ]
 
   File {
     owner  => $box_username,
@@ -30,7 +33,8 @@ class boxutils::dotfiles {
     require => [Package['git'], File[$box_homedir]],
   }
 
-  [".gnupg", "bin", ".config", ".config/awesome"].each |String $dir| {
+  [".gnupg", "bin", ".config", ".config/awesome",
+    ".config/systemd", ".config/systemd/user"].each |String $dir| {
     file { "$box_homedir/$dir":
       ensure => directory,
       force => true,
@@ -53,6 +57,13 @@ class boxutils::dotfiles {
       ensure => link,
       force => true,
       require => Exec['git clone dotfiles'],
+    }
+  }
+
+  $systemd_units.each |String $file| {
+    file { "$box_homedir/.config/systemd/user/$file":
+      ensure => file,
+      source => "$box_dotfiles/systemd/user/$file",
     }
   }
 
