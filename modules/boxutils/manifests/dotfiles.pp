@@ -17,6 +17,11 @@ class boxutils::dotfiles {
     'sharedbin'     => 'bin/shared',
   }
 
+  File {
+    owner  => $box_username,
+    group  => $box_usergrp,
+  }
+
   exec { 'git clone dotfiles':
     command => "/usr/bin/git clone https://github.com/jezcope/dotfiles.git $box_dotfiles",
     creates => $box_dotfiles,
@@ -29,8 +34,6 @@ class boxutils::dotfiles {
     file { "$box_homedir/$dir":
       ensure => directory,
       force => true,
-      owner => $box_username,
-      group => $box_usergrp,
       require => Exec['git clone dotfiles'],
     }
   }
@@ -40,8 +43,6 @@ class boxutils::dotfiles {
       target => "$box_dotfiles/${file}",
       ensure => link,
       force => true,
-      owner  => $box_username,
-      group  => $box_usergrp,
       require => Exec['git clone dotfiles'],
     }
   }
@@ -51,8 +52,6 @@ class boxutils::dotfiles {
       target => "$box_dotfiles/$target",
       ensure => link,
       force => true,
-      owner  => $box_username,
-      group  => $box_usergrp,
       require => Exec['git clone dotfiles'],
     }
   }
