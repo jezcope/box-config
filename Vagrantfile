@@ -12,11 +12,13 @@ Vagrant.configure(2) do |config|
   config.vm.define "ubuntu" do |ubuntu|
     config.vm.box = "ubuntu/vivid64"
     config.vm.hostname = "ubuntu.box-config.dev"
+    config.vm.network :forwarded_port, guest: 22, host: 2223
   end
 
   config.vm.define "arch" do |arch|
     config.vm.box = "ogarcia/archlinux-201508-x64"
     config.vm.hostname = "arch.box-config.dev"
+    config.vm.network :forwarded_port, guest: 22, host: 2224
   end
 
 end
