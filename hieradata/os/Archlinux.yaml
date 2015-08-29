@@ -1,0 +1,10 @@
+---
+packages:
+  ssh: openssh
+  xapian: xapian-core
+  ldap-utils: openldap
+  silversearcher: the_silver_searcher
+  gnupg: [gnupg, pcsclite]
+  python: [python, python-pip, ipython, jupyter]
+  tex: [texlive-bin, texlive-latexextra, texlive-science, texinfo]
+  rvm_required: []

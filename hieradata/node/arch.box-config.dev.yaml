@@ -1,6 +1,3 @@
 ---
-#username: jez
-#usergrp:  jez
-#homedir:  /home/jez
 classes:
-  - boxroles::minimal
+  - boxroles::base

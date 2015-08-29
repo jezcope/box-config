@@ -1,0 +1,10 @@
+---
+packages:
+  xapian: xapian-dev
+  silversearcher: silversearcher-ag
+  gmime: libgmime-2.6-dev
+  gnupg: [gnupg2, scdaemon, pcscd, libpcsclite-dev]
+  tex: [texlive, texlive-latex-extra, texlive-xetex, texlive-science, texinfo, latexmk]
+  cifs: [cifs-utils, winbind]
+  python: [python3, python3-pip, ipython, ipython-notebook, ipython3, ipython3-notebook]
+  rvm-required: [gawk, libreadline6-dev, zlib1g-dev, libssl-dev, libyaml-dev, libsqlite3-dev, sqlite3, libgdbm-dev, libncurses5-dev, libtool, bison, pkg-config, libffi-dev]:

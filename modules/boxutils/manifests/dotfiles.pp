@@ -64,12 +64,14 @@ class boxutils::dotfiles {
     file { "$box_homedir/.config/systemd/user/$file":
       ensure => file,
       source => "$box_dotfiles/systemd/user/$file",
+      require => Exec['git clone dotfiles'],
     }
   }
 
   file { "$box_homedir/.config/awesome/localprefs.lua":
     source => "$box_dotfiles/awesome_localprefs_example.lua",
     replace => no,
+    require => Exec['git clone dotfiles'],
   }
 
 }

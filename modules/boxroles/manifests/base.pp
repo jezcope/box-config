@@ -1,64 +1,57 @@
 class boxroles::base {
 
   include boxroles::minimal
-  include boxroles::fonts
+  # include boxroles::fonts
 
-  $p_ssh = $::osfamily ? {
-    'Debian' => 'ssh', 'Archlinux' => 'openssh',
-  }
-  $p_xapian = $::osfamily ? {
-    'Debian' => 'libxapian-dev', 'Archlinux' => 'xapian-core',
-  }
-  $p_pandoc = $::osfamily ? {
-    'Ubuntu' => 'pandoc', 'Archlinux' => 'pandoc-bin',
-  }
+  $p_ssh = hiera('packages.ssh', 'ssh')
+  $p_xapian = hiera('packages.xapian', 'xapian')
+  $p_ldap= hiera('packages.ldap-utils', 'ldap-utils')
+  $p_silversearcher = hiera('packages.silversearcher', 'silversearcher-ag')
+  $p_gmime = hiera('packages.gmime', 'gmime')
+  $p_gdbm = hiera('packages.gdbm', 'gdbm')
+  $p_python = hiera('packages.python', 'python')
+  $p_pip = hiera('packages.pip', 'python-pip')
+  $p_gnupg = hiera('packages.gnupg', 'gnupg')
+  $p_tex = hiera('packages.tex')
+  $p_cifs = hiera('packages.cifs', 'cifs-utils')
 
   package {
-    ['ldap-utils',
+    [$p_ldap,
      'bzr', 'mercurial', 'cvs',
      # 'librarian-puppet', 'puppet-lint', TODO: install these as gems instead
      'autoconf',
      $p_ssh, 'lftp',
      'unison',
      'apg',
-     'ack-grep', 'silversearcher-ag',
-     'gnupg2', 'scdaemon', 'pcscd', 'libpcsclite-dev',
+     $p_silversearcher,
+     $p_gnupg,
      'keychain',
      'offlineimap',
      'imagemagick',
      'ruby',
-     'python3',
-     'python-pip',
-     'ipython', 'ipython-notebook', 'ipython3', 'ipython3-notebook',
-     'libgmime-2.6-dev', $p_xapian, 'html2text', # for mu4e
-     $p_pandoc,
-     'zsh',
+     $p_python,
+     $p_gmime, $p_xapian, 'html2text', # for mu4e
+     # 'pandoc', TODO: install this from cabal instead
+     $p_tex,
      'tmux',
-     'maildir-utils',
-     'texlive',
-     'texlive-latex-extra',
-     'texlive-xetex',
-     'texlive-science',
-     'texinfo',
-     'latexmk',
-     'curl',
-     'cifs-utils',
-     'winbind',
+     'curl', 'wget',
+     $p_cifs,
      'qrencode',
      ]:
        ensure => present;
   }
 
   # Required for rvm rubies on Ubuntu
-  package {
-    ['gawk', 'libreadline6-dev', 'zlib1g-dev', 'libssl-dev', 'libyaml-dev', 'libsqlite3-dev', 'sqlite3', 'libgdbm-dev', 'libncurses5-dev', 'libtool', 'bison', 'pkg-config', 'libffi-dev']:
+  package { hiera('packages.rvm-required', []):
       ensure => installed;
   }
 
-  file { '/usr/lib/libpcsclite.so':
-    ensure => link,
-    target => '/usr/lib/x86_64-linux-gnu/libpcsclite.so',
-    require => Package['libpcsclite-dev'];
+  if ::osfamily == 'Debian' {
+    file { '/usr/lib/libpcsclite.so':
+        ensure => link,
+        target => '/usr/lib/x86_64-linux-gnu/libpcsclite.so',
+        require => Package['libpcsclite-dev'];
+    }
   }
 
 }

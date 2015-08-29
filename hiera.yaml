@@ -4,5 +4,6 @@
   :datadir: /etc/puppet/hieradata
 :hierarchy:
   - "node/%{::fqdn}"
+  - "os/%{::osfamily}"
   - common
 :logger: console
