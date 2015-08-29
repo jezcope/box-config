@@ -1,22 +1,7 @@
 class boxroles::base {
 
-  include boxutils::dotfiles
+  include boxroles::minimal
   include boxroles::fonts
-
-  case $::osfamily {
-    'Arch':   { include boxutils::arch }
-    'Debian': { include boxutils::debian }
-  }
-
-  user { $box_username:
-    ensure => present,
-  }
-
-  file { $box_homedir:
-    ensure => directory,
-    owner => $box_username,
-    group => $box_usergrp,
-  }
 
   $p_ssh = $::osfamily ? {
     'Debian' => 'ssh', 'Archlinux' => 'openssh',
@@ -30,7 +15,7 @@ class boxroles::base {
 
   package {
     ['ldap-utils',
-     'git', 'bzr', 'mercurial', 'cvs',
+     'bzr', 'mercurial', 'cvs',
      # 'librarian-puppet', 'puppet-lint', TODO: install these as gems instead
      'autoconf',
      $p_ssh, 'lftp',

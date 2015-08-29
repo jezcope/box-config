@@ -21,6 +21,8 @@ class boxutils::dotfiles {
     command => "/usr/bin/git clone https://github.com/jezcope/dotfiles.git $box_dotfiles",
     creates => $box_dotfiles,
     user => $box_username,
+    cwd => '/tmp',
+    require => [Package['git'], File[$box_homedir]],
   }
 
   [".gnupg", "bin", ".config", ".config/awesome"].each |String $dir| {
