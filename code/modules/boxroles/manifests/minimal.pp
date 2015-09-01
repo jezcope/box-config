@@ -22,4 +22,10 @@ class boxroles::minimal {
       ensure => present;
   }
 
+  file { '/usr/local/bin/box-config':
+    ensure => link,
+    target => '/etc/box-config/scripts/box-config',
+    force => true,
+  }
+
 }

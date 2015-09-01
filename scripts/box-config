@@ -35,7 +35,7 @@ function edit_node_data {
 function bootstrap {
     install_puppet
     edit_node_data
-    # apply
+    apply
 }
 
 function apply {
