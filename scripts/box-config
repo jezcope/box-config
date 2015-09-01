@@ -18,7 +18,9 @@ function install_puppet {
       ln -s /opt/puppetlabs/bin/* /usr/local/bin/
   elif which pacman &>/dev/null ; then
       pacman -Sy
-      pacman -S puppet
+      pacman -Qi facter2 &>/dev/null && pacman -R facter2 --assume-installed facter=3.0.0 --noconfirm
+      pacman -Qi puppet3 &>/dev/null && pacman -R puppet3 --noconfirm
+      pacman -S --noconfirm puppet facter
   fi
 }
 
