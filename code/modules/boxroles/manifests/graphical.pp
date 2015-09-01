@@ -30,6 +30,9 @@ class boxroles::graphical {
     Package['python-gpgme'] -> Package['dropbox']
 
   }
+  elsif ::osfamily == "Archlinux" {
+    Exec['enable arch multilib'] -> Package['skype']
+  }
 
   $p = hiera('packages')
 

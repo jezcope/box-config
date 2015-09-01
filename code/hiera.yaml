@@ -1,7 +1,7 @@
 ---
 :backends: yaml
 :yaml:
-  :datadir: /etc/puppet/hieradata
+  :datadir: /etc/box-config/hieradata
 :hierarchy:
   - "node/%{::fqdn}"
   - "os/%{::osfamily}"

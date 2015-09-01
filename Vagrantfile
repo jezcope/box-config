@@ -7,7 +7,7 @@
 # you're doing.
 Vagrant.configure(2) do |config|
 
-  config.vm.synced_folder ".", "/etc/puppet"
+  config.vm.synced_folder ".", "/etc/box-config"
 
   config.vm.define "ubuntu" do |ubuntu|
     config.vm.box = "ubuntu/vivid64"
