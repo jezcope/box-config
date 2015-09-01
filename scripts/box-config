@@ -6,8 +6,16 @@ puppet_dir=$(dirname $(readlink -f $(dirname $0)))
 
 function install_puppet {
   if which apt-get &>/dev/null ; then
+      (
+          cd /tmp
+          wget http://apt.puppetlabs.com/puppetlabs-release-pc1-utopic.deb
+          dpkg -i puppetlabs-release-pc1-utopic.deb
+      )
+
       apt-get update
-      apt-get install puppet
+      apt-get install -y puppet-agent
+
+      ln -s /opt/puppetlabs/bin/* /usr/local/bin/
   elif which pacman &>/dev/null ; then
       pacman -Sy
       pacman -S puppet
