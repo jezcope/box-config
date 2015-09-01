@@ -2,7 +2,7 @@
 
 [ "$EUID" -eq 0 ] || exec sudo bash "$0" "$@"
 
-puppet_dir=$(dirname $(readlink -f $(dirname $0)))
+puppet_dir=$(dirname $(dirname $(readlink -f $0)))
 
 function install_puppet {
   if which apt-get &>/dev/null ; then
