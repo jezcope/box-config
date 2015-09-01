@@ -18,6 +18,8 @@ class boxutils::arch {
 
   exec { 'pacman update':
     command => 'pacman -Sy',
+    refreshonly => true,
+    before => Package<| |>,
   }
 
 }
