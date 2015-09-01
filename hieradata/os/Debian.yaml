@@ -1,10 +1,20 @@
 ---
 packages:
-  xapian: xapian-dev
+  ldap: ldap-utils
+  ssh: ssh
   silversearcher: silversearcher-ag
-  gmime: libgmime-2.6-dev
   gnupg: [gnupg2, scdaemon, pcscd, libpcsclite-dev]
+  gmime: libgmime-2.6-dev
+  xapian: xapian-dev
   tex: [texlive, texlive-latex-extra, texlive-xetex, texlive-science, texinfo, latexmk]
   cifs: [cifs-utils, winbind]
   python: [python3, python3-pip, ipython, ipython-notebook, ipython3, ipython3-notebook]
-  rvm-required: [gawk, libreadline6-dev, zlib1g-dev, libssl-dev, libyaml-dev, libsqlite3-dev, sqlite3, libgdbm-dev, libncurses5-dev, libtool, bison, pkg-config, libffi-dev]:
+  rvm-required: [gawk, libreadline6-dev, zlib1g-dev, libssl-dev, libyaml-dev, libsqlite3-dev, sqlite3, libgdbm-dev, libncurses5-dev, libtool, bison, pkg-config, libffi-dev]
+  chromium: chromium-browser
+  libreoffice: [libreoffice, libreoffice-gtk]
+  xscreensaver: [xscreensaver, xscreensaver-gl, xscreensaver-gl-extra]
+  unison: unison-gtk
+  emacs: emacs24
+  dropbox: [dropbox, python-gpgme]
+  gvim: vim-gtk
+  unison-gtk: unison-gtk

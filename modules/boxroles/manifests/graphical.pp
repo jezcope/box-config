@@ -1,51 +1,56 @@
 class boxroles::graphical {
 
-  include apt
+  if ::osfamily == "Debian" {
+    include apt
 
-  apt::source { 'partner':
-    location => 'http://archive.canonical.com/',
-    repos => 'partner',
+    apt::source { 'partner':
+        location => 'http://archive.canonical.com/',
+        repos => 'partner',
+    }
+
+    # apt::source { 'mopidy':
+    #     location => 'http://apt.mopidy.com/',
+    #     release => 'stable',
+    #     repos => 'main contrib non-free',
+    #     key => {
+    #     id => '9E36464A7C030945EEB7632878FD980E271D2943',
+    #     source => 'https://apt.mopidy.com/mopidy.gpg',
+    #     },
+    # }
+
+    apt::source { 'dropbox':
+        location => 'http://linux.dropbox.com/ubuntu',
+        repos => 'main',
+        key => {
+        id => '1C61A2656FB57B7E4DE0F4C1FC918B335044912E',
+        server => 'pgp.mit.edu',
+        },
+    }
+
+    Package['python-gpgme'] -> Package['dropbox']
+
   }
 
-  apt::source { 'mopidy':
-    location => 'http://apt.mopidy.com/',
-    release => 'stable',
-    repos => 'main contrib non-free',
-    key => {
-      id => '9E36464A7C030945EEB7632878FD980E271D2943',
-      source => 'https://apt.mopidy.com/mopidy.gpg',
-    },
-  }
-
-  apt::source { 'dropbox':
-    location => 'http://linux.dropbox.com/ubuntu',
-    repos => 'main',
-    key => {
-      id => '1C61A2656FB57B7E4DE0F4C1FC918B335044912E',
-      server => 'pgp.mit.edu',
-    },
-  }
+  $p = hiera('packages')
 
   package {
-    ['xscreensaver', 'xscreensaver-gl', 'xscreensaver-gl-extra',
-     'emacs24', 'vim-gtk',
-     'unison-gtk',
+    [$p[xscreensaver],
+     $p[emacs], $p[gvim],
+     $p[unison-gtk],
      'skype', 'pidgin',
-     'mopidy', 'mopidy-spotify', 'ncmpcpp', 'mpc',
-     'chromium-browser', 'firefox',
+     # 'mopidy', 'mopidy-spotify', 'ncmpcpp', 'mpc',
+     $p[chromium],
+     'firefox',
      'pavucontrol',
      'yubikey-personalization', 'yubikey-personalization-gui',
-     'libreoffice-gtk', 'libreoffice-calc', 'libreoffice-writer', 'libreoffice-impress', 'libreoffice-draw',
+     $p[libreoffice],
      'abiword',
-     'dropbox', 'python-gpgme',
+     $p[dropbox],
      'workrave',
-     'font-manager',
      'sakura',
      ]:
       ensure => present;
   }
-
-  Package['python-gpgme'] -> Package['dropbox']
 
   file { '/opt/lplinux':
     ensure => directory;

@@ -1,10 +1,20 @@
 ---
 packages:
+  ldap: openldap
   ssh: openssh
-  xapian: xapian-core
-  ldap-utils: openldap
   silversearcher: the_silver_searcher
   gnupg: [gnupg, pcsclite]
-  python: [python, python-pip, ipython, jupyter]
+  gmime: gmime
+  xapian: xapian-core
   tex: [texlive-bin, texlive-latexextra, texlive-science, texinfo]
-  rvm_required: []
+  cifs: []
+  python: [python, python-pip, ipython, jupyter]
+  rvm-required: []
+  chromium: chromium
+  libreoffice: [libreoffice-fresh, libreoffice-fresh-en-GB]
+  xscreensaver: xscreensaver
+  unison: unison
+  emacs: emacs
+  dropbox: dropbox
+  gvim: gvim
+  unison-gtk: []
