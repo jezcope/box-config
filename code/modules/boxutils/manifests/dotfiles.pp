@@ -2,7 +2,8 @@ class boxutils::dotfiles {
 
   $box_dotfiles = "$box_homedir/.dotfiles"
 
-  $dotlinks = ['zshrc', 'zshenv', 'zsh', 'vimrc', 'vim', 'emacs.d',
+  $dotlinks = ['zshrc', 'zshenv', 'zshenv.path', 'zsh',
+               'vimrc', 'vim', 'emacs.d',
                'pentadactyl', 'pentadactylrc',
                'vimperatorrc', 'vimperator',
                'xmonad', 'gitconfig',
