@@ -1,0 +1,61 @@
+#!/bin/bash
+
+[ "$EUID" -eq 0 ] || exec sudo bash "$0" "$@"
+
+puppet_dir=$(dirname $(dirname $(readlink -f $0)))
+
+function install_puppet {
+  if which apt-get &>/dev/null ; then
+      (
+          cd /tmp
+          wget http://apt.puppetlabs.com/puppetlabs-release-pc1-utopic.deb
+          dpkg -i puppetlabs-release-pc1-utopic.deb
+      )
+
+      apt-get update
+      apt-get install -y puppet-agent
+
+      ln -s /opt/puppetlabs/bin/* /usr/local/bin/
+  elif which pacman &>/dev/null ; then
+      pacman -Sy
+      pacman -Qi facter2 &>/dev/null && pacman -R facter2 --assume-installed facter=3.0.0 --noconfirm
+      pacman -Qi puppet3 &>/dev/null && pacman -R puppet3 --noconfirm
+      pacman -S --noconfirm puppet facter
+  fi
+}
+
+function edit_node_data {
+  node_data=$puppet_dir/hieradata/node/$(facter fqdn).yaml
+
+  if [ ! -f $node_data ]; then
+      cp $puppet_dir/templates/node-data.yaml $node_data
+  fi
+
+  vi $node_data
+}
+
+function bootstrap {
+    install_puppet
+    edit_node_data
+    apply
+}
+
+function apply {
+  puppet apply --confdir=$puppet_dir/puppet $puppet_dir/code/default.pp
+}
+
+case $1 in
+    bootstrap|b)
+        bootstrap
+        ;;
+    apply|a)
+        apply
+        ;;
+    edit_node_data|e)
+        edit_node_data
+        ;;
+    *)
+        echo "Unknown command: $1"
+        exit 1
+        ;;
+esac

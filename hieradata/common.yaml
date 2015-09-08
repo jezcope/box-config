@@ -2,8 +2,6 @@
 username: jez
 usergrp:  jez
 homedir:  /home/jez
-classes:
-  - boxroles::base
-  - boxutils::dotfiles
+classes: []
 apt::update:
   frequency: daily

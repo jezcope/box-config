@@ -30,10 +30,12 @@ class boxroles::fonts {
       path => '/bin:/usr/bin';
     'fetch Input font':
       command => 'wget -O /opt/Input-Font.zip "http://input.fontbureau.com/build/?customize&fontSelection=whole&a=ss&g=ss&i=serifs&l=0&zero=slash&asterisk=0&braces=straight&preset=default&line-height=1.2&accept=I+do&email="',
-      creates => '/opt/Input-Font.zip';
+      creates => '/opt/Input-Font.zip',
+      require => Package['wget'];
     'fetch Goudy Bookletter 1911 font':
       command => 'wget -O /opt/Goudy-Bookletter-1911.zip "http://www.fontsquirrel.com/fonts/download/Goudy-Bookletter-1911"',
-      creates => '/opt/Goudy-Bookletter-1911.zip';
+      creates => '/opt/Goudy-Bookletter-1911.zip',
+      require => Package['wget'];
     'extract Input font':
       command => 'unzip /opt/Input-Font.zip -d /usr/share/fonts/opentype Input_Fonts/\*',
       creates => '/usr/share/fonts/opentype/Input_Fonts',
