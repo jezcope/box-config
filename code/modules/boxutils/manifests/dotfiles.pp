@@ -64,7 +64,7 @@ class boxutils::dotfiles {
   $systemd_units.each |String $file| {
     file { "$box_homedir/.config/systemd/user/$file":
       ensure => file,
-      source => "$box_dotfiles/systemd/user/$file",
+      content => template("$box_dotfiles/systemd/user/$file.erb"),
       require => Exec['git clone dotfiles'],
     }
   }
