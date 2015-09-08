@@ -5,7 +5,7 @@ packages:
   silversearcher: silversearcher-ag
   gnupg: [gnupg2, scdaemon, pcscd, libpcsclite-dev]
   gmime: libgmime-2.6-dev
-  xapian: xapian-dev
+  xapian: libxapian-dev
   tex: [texlive, texlive-latex-extra, texlive-xetex, texlive-science, texinfo, latexmk]
   cifs: [cifs-utils, winbind]
   python: [python3, python3-pip, ipython, ipython-notebook, ipython3, ipython3-notebook]
