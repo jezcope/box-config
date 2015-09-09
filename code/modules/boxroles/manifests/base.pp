@@ -26,7 +26,7 @@ class boxroles::base {
      $p['tex'],
      'tmux',
      'curl', 'wget', 'unzip',
-     $p['cifs'],
+     $p['cifs'], $p['exfat'],
      'qrencode',
      $p['rvm-required'],
      ]:

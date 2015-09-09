@@ -8,6 +8,7 @@ packages:
   xapian: xapian-core
   tex: [texlive-bin, texlive-latexextra, texlive-science, texinfo]
   cifs: []
+  exfat: [exfat-utils, fuse-exfat]
   python: [python, python-pip, ipython, jupyter]
   rvm-required: []
   chromium: chromium
