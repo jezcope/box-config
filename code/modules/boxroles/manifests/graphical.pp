@@ -1,6 +1,6 @@
 class boxroles::graphical {
 
-  if ::osfamily == "Debian" {
+  if $::osfamily == "Debian" {
     include apt
 
     apt::source { 'partner':
@@ -30,7 +30,7 @@ class boxroles::graphical {
     Package['python-gpgme'] -> Package['dropbox']
 
   }
-  elsif ::osfamily == "Archlinux" {
+  elsif $::osfamily == "Archlinux" {
     Exec['enable arch multilib'] -> Package['skype']
   }
 

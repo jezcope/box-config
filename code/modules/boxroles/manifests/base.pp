@@ -37,7 +37,7 @@ class boxroles::base {
      #   provider => gem;
   }
 
-  if ::osfamily == 'Debian' {
+  if $::osfamily == 'Debian' {
     file { '/usr/lib/libpcsclite.so':
         ensure => link,
         target => '/usr/lib/x86_64-linux-gnu/libpcsclite.so',
