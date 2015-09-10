@@ -1,5 +1,9 @@
 #!/bin/bash
 
+set -o errexit
+set -o pipefail
+set -o nounset
+
 [ "$EUID" -eq 0 ] || exec sudo bash "$0" "$@"
 
 puppet_dir=$(dirname $(dirname $(readlink -f $0)))
