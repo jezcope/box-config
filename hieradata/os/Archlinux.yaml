@@ -19,3 +19,4 @@ packages:
   dropbox: dropbox
   gvim: gvim
   unison-gtk: []
+  gnutls: gnutls

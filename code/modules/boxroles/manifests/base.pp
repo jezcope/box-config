@@ -7,6 +7,7 @@ class boxroles::base {
 
   package {
     [$p['ldap'],
+     $p['gnutls'],
      'bzr', 'mercurial', 'cvs',
      # 'librarian-puppet', 'puppet-lint', TODO: install these as gems instead
      'autoconf',
