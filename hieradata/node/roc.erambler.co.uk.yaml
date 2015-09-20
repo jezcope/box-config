@@ -1,4 +1,5 @@
 ---
 classes:
   - boxroles::base
+  - boxroles::znc
 

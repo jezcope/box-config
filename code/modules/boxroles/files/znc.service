@@ -1,0 +1,10 @@
+[Unit]
+Description=ZNC IRC bouncer
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/znc -f
+User=bouncer
+
+[Install]
+WantedBy=default.target
