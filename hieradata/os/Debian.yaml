@@ -19,3 +19,4 @@ packages:
   dropbox: [dropbox, python-gpgme]
   gvim: vim-gtk
   unison-gtk: unison-gtk
+  gnutls: gnutls-bin

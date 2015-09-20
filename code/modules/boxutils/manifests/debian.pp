@@ -2,7 +2,9 @@ class boxutils::debian {
 
   include apt
 
-  Apt::Source<| |> ~> Exec['apt_update'] -> Package<| |>
+  Apt::Source<| |> ~> Exec['apt_update']
+  Apt::Ppa<| |> ~> Exec['apt_update']
+  Exec['apt_update'] -> Package<| |>
 
   if $::lsbdistid == 'Ubuntu' and $::architecture == 'amd64' {
     exec { 'enable Ubuntu multiarch':

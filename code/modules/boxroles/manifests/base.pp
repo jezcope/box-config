@@ -7,12 +7,13 @@ class boxroles::base {
 
   package {
     [$p['ldap'],
+     $p['gnutls'],
      'bzr', 'mercurial', 'cvs',
      # 'librarian-puppet', 'puppet-lint', TODO: install these as gems instead
      'autoconf',
      $p['ssh'], 'lftp',
      'irssi',
-     'colordiff',
+     'colordiff', 'wdiff',
      'unison',
      'apg',
      $p['silversearcher'],
@@ -38,7 +39,7 @@ class boxroles::base {
      #   provider => gem;
   }
 
-  if ::osfamily == 'Debian' {
+  if $::osfamily == 'Debian' {
     file { '/usr/lib/libpcsclite.so':
         ensure => link,
         target => '/usr/lib/x86_64-linux-gnu/libpcsclite.so',

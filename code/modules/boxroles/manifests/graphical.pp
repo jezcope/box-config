@@ -1,22 +1,12 @@
 class boxroles::graphical {
 
-  if ::osfamily == "Debian" {
+  if $::osfamily == "Debian" {
     include apt
 
     apt::source { 'partner':
         location => 'http://archive.canonical.com/',
         repos => 'partner',
     }
-
-    # apt::source { 'mopidy':
-    #     location => 'http://apt.mopidy.com/',
-    #     release => 'stable',
-    #     repos => 'main contrib non-free',
-    #     key => {
-    #     id => '9E36464A7C030945EEB7632878FD980E271D2943',
-    #     source => 'https://apt.mopidy.com/mopidy.gpg',
-    #     },
-    # }
 
     apt::source { 'dropbox':
         location => 'http://linux.dropbox.com/ubuntu',
@@ -30,7 +20,7 @@ class boxroles::graphical {
     Package['python-gpgme'] -> Package['dropbox']
 
   }
-  elsif ::osfamily == "Archlinux" {
+  elsif $::osfamily == "Archlinux" {
     Exec['enable arch multilib'] -> Package['skype']
   }
 
@@ -41,7 +31,6 @@ class boxroles::graphical {
      $p[emacs], $p[gvim],
      $p[unison-gtk],
      'skype', 'pidgin',
-     # 'mopidy', 'mopidy-spotify', 'ncmpcpp', 'mpc',
      $p[chromium],
      'firefox',
      'pavucontrol',
