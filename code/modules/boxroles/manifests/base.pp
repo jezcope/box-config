@@ -11,6 +11,7 @@ class boxroles::base {
      # 'librarian-puppet', 'puppet-lint', TODO: install these as gems instead
      'autoconf',
      $p['ssh'], 'lftp',
+     'irssi',
      'colordiff',
      'unison',
      'apg',
