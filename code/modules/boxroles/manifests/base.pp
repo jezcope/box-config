@@ -45,6 +45,19 @@ class boxroles::base {
         target => '/usr/lib/x86_64-linux-gnu/libpcsclite.so',
         require => Package['libpcsclite-dev'];
     }
+
+    exec { 'fetch pandoc':
+      path => '/usr/bin',
+      command => 'wget -O  /opt/pandoc-1.15.0.6-1-amd64.deb "https://github.com/jgm/pandoc/releases/download/1.15.0.6/pandoc-1.15.0.6-1-amd64.deb"',
+      creates => '/opt/pandoc-1.15.0.6-1-amd64.deb',
+      require => Package['wget'];
+    }
+
+    package { 'pandoc':
+      source => '/opt/pandoc-1.15.0.6-1-amd64.deb',
+      provider => dpkg,
+      require => Exec['fetch pandoc'],
+    }
   }
 
 }
