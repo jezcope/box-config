@@ -11,7 +11,7 @@ class boxroles::base {
      'bzr', 'mercurial', 'cvs',
      # 'librarian-puppet', 'puppet-lint', TODO: install these as gems instead
      'autoconf',
-     $p['ssh'], 'lftp',
+     $p['ssh'], 'lftp', 'whois',
      'irssi',
      'colordiff', 'wdiff',
      'unison',
