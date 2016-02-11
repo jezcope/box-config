@@ -16,6 +16,7 @@ class boxutils::dotfiles {
     'awesomerc.lua' => '.config/awesome/rc.lua',
     'texmf'         => 'texmf',
     'sharedbin'     => 'bin/shared',
+    'applications/org-protocol.desktop' => '.local/share/applications/org-protocol.desktop',
   }
   $systemd_units = [
     'gpg-agent.service',
@@ -73,6 +74,13 @@ class boxutils::dotfiles {
     source => "$box_dotfiles/awesome_localprefs_example.lua",
     replace => no,
     require => Exec['git clone dotfiles'],
+  }
+
+  exec { 'update-desktop-database':
+    command => "/usr/bin/update-desktop-database $box_homedir/.local/share/applications",
+    refreshonly => true,
+    user => $box_username,
+    subscribe => File["$box_homedir/.local/share/applications/org-protocol.desktop"],
   }
 
 }
