@@ -40,6 +40,7 @@ class boxroles::graphical {
      $p[dropbox],
      'workrave',
      'sakura',
+     'claws-mail',
      ]:
       ensure => present;
   }
