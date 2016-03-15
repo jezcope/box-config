@@ -33,13 +33,16 @@ class boxroles::graphical {
      'skype', 'pidgin',
      $p[chromium],
      'firefox',
-     'pavucontrol',
+     'pavucontrol', 'xbacklight',
      'yubikey-personalization', 'yubikey-personalization-gui',
      $p[libreoffice],
      'abiword',
      $p[dropbox],
      'workrave',
      'sakura',
+     'claws-mail',
+     'caja', 'atril',
+     'hexchat',
      ]:
       ensure => present;
   }

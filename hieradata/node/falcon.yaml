@@ -1,6 +1,7 @@
 ---
+#username: jez
+#usergrp:  jez
+#homedir:  /home/jez
 classes:
   - boxroles::base
   - boxroles::graphical
-  - boxroles::scientific
-  - boxroles::webdev

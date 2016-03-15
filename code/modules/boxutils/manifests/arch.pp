@@ -21,6 +21,8 @@ class boxutils::arch {
     refreshonly => true,
   }
 
+  package { 'cpio': }
+
   Exec['pacman update'] -> Package<| |>
 
 }
