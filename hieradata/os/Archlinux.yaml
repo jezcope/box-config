@@ -20,3 +20,4 @@ packages:
   gvim: gvim
   unison-gtk: []
   gnutls: gnutls
+  xbacklight: xorg-xbacklight
