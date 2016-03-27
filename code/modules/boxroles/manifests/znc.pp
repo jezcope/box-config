@@ -1,6 +1,6 @@
 class boxroles::znc {
 
-  package {'znc':}
+  package {['znc', 'znc-dev', 'libicu-dev']:}
 
   group {'bouncer':
     ensure => present,

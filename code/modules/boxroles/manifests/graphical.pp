@@ -41,6 +41,8 @@ class boxroles::graphical {
      'workrave',
      'sakura',
      'claws-mail',
+     'caja', 'atril',
+     'hexchat',
      ]:
       ensure => present;
   }
