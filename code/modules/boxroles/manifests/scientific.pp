@@ -15,6 +15,9 @@ class boxroles::scientific {
 
   }
 
-  package { ['r-base', 'r-base-dev']: }
+  package { [
+             'r-base', 'r-base-dev',
+             'julia',
+             ]: }
 
 }
