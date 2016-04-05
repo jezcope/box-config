@@ -10,6 +10,7 @@ packages:
   cifs: []
   exfat: exfat-utils
   python: [python, python-pip, ipython, jupyter]
+  r: r
   rvm-required: []
   chromium: chromium
   libreoffice: [libreoffice-fresh, libreoffice-fresh-en-GB]
@@ -20,3 +21,5 @@ packages:
   gvim: gvim
   unison-gtk: []
   gnutls: gnutls
+  xbacklight: xorg-xbacklight
+  mysql: [mariadb, mariadb-clients, libmariadbclient]

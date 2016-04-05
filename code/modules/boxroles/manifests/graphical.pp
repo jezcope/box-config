@@ -33,7 +33,7 @@ class boxroles::graphical {
      'skype', 'pidgin',
      $p[chromium],
      'firefox',
-     'pavucontrol', 'xbacklight',
+     'pavucontrol', $p['xbacklight'],
      'yubikey-personalization', 'yubikey-personalization-gui',
      $p[libreoffice],
      'abiword',

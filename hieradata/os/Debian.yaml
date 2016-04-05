@@ -10,6 +10,7 @@ packages:
   cifs: [cifs-utils, winbind]
   exfat: [exfat-utils, exfat-fuse]
   python: [python3, python3-pip, ipython, ipython-notebook, ipython3, ipython3-notebook]
+  r: [r-base, r-base-dev]
   rvm-required: [gawk, libreadline6-dev, zlib1g-dev, libssl-dev, libyaml-dev, libsqlite3-dev, sqlite3, libgdbm-dev, libncurses5-dev, libtool, bison, pkg-config, libffi-dev]
   chromium: chromium-browser
   libreoffice: [libreoffice, libreoffice-gtk]
@@ -20,3 +21,5 @@ packages:
   gvim: vim-gtk
   unison-gtk: unison-gtk
   gnutls: gnutls-bin
+  xbacklight: xbacklight
+  mysql: [mysql-client, mysql-server, libmysqlclient-dev]
