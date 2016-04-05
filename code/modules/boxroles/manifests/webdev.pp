@@ -1,5 +1,8 @@
 class boxroles::webdev {
 
-  package { ["mysql-client", "mysql-server", "libmysqlclient-dev"]: }
+  package { [
+             "mysql-client", "mysql-server", "libmysqlclient-dev",
+             "npm",
+             ]: }
 
 }
