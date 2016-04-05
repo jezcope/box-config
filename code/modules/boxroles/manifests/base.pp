@@ -21,8 +21,10 @@ class boxroles::base {
      'keychain',
      'offlineimap',
      'imagemagick',
+     'rlwrap',
      'ruby',
      $p['python'],
+     'sbcl',
      $p['gmime'], $p['xapian'], # for mu4e
      # 'pandoc', TODO: install this from cabal instead
      $p['tex'],

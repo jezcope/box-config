@@ -15,6 +15,8 @@ class boxroles::scientific {
 
   }
 
-  package { ['r-base', 'r-base-dev']: }
+  $p = hiera('packages')
+
+  package { [$p['r'], 'julia']: }
 
 }
