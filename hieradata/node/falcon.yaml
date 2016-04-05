@@ -5,3 +5,5 @@
 classes:
   - boxroles::base
   - boxroles::graphical
+  - boxroles::scientific
+  - boxroles::webdev
