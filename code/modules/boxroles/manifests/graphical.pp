@@ -43,6 +43,7 @@ class boxroles::graphical {
      'claws-mail',
      'caja', 'atril',
      'hexchat',
+     'linssid',
      ]:
       ensure => present;
   }
