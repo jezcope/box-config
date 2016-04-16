@@ -17,6 +17,7 @@ packages:
   xscreensaver: xscreensaver
   unison: unison
   emacs: emacs
+  mu4e: mu
   dropbox: dropbox
   gvim: gvim
   unison-gtk: []

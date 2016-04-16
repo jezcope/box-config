@@ -17,6 +17,7 @@ packages:
   xscreensaver: [xscreensaver, xscreensaver-gl, xscreensaver-gl-extra]
   unison: unison-gtk
   emacs: emacs24
+  mu4e: mu4e
   dropbox: [dropbox, python-gpgme]
   gvim: vim-gtk
   unison-gtk: unison-gtk

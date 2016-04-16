@@ -29,6 +29,7 @@ class boxroles::graphical {
   package {
     [$p[xscreensaver],
      $p[emacs], $p[gvim],
+     $p[mu4e],
      $p[unison-gtk],
      'skype', 'pidgin',
      $p[chromium],
