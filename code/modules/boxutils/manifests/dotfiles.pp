@@ -10,6 +10,7 @@ class boxutils::dotfiles {
                'gitignore.global', 'htmltidy.conf', 'ackrc', 'keysnail.js']
   $otherlinks = {
     'gpg.conf'      => '.gnupg/gpg.conf',
+    'gpg-agent.conf' => '.gnupg/gpg-agent.conf',
     'dirmngr.conf'  => '.gnupg/dirmngr.conf',
     'scdaemon.conf' => '.gnupg/scdaemon.conf',
     'certs'         => '.gnupg/certs',
