@@ -33,6 +33,7 @@ class boxroles::base {
      $p['cifs'], $p['exfat'],
      'qrencode',
      $p['rvm-required'],
+     'shellcheck',
      ]:
        ensure => present;
      

@@ -35,6 +35,7 @@ class boxroles::graphical {
      $p[chromium],
      'firefox',
      'pavucontrol', $p[xbacklight],
+     'xclip',
      'yubikey-personalization', 'yubikey-personalization-gui',
      $p[libreoffice],
      'abiword',
