@@ -1,3 +1,55 @@
+##Supported Release 2.2.2
+###Summary
+
+Several bug fixes and the addition of support updates to Debian 8 and Ubunto Wily.
+
+####Bugfixes
+- Small fixes to descriptions within the readme and the addition of some examples.
+- Updates to run on Ubunto Wily.
+- Fixed apt_key tempfile race condition.
+- Run stages limitation added to the documentation.
+- Remove unneeded whitespace in source.list template.
+- Handle PPA names that contain a plus character.
+- Update to current msync configs.
+- Avoid duplicate package resources when package_manage => true.
+- Avoid multiple package resource declarations.
+- Ensure PPAs in tests have valid form.
+- Look for correct sources.list.d file for apt::ppa.
+- Debian 8 support addiiton to metadata.
+
+##Supported Release 2.2.1
+###Summary
+
+Small release for support of newer PE versions. This increments the version of PE in the metadata.json file.
+
+##2015-09-29 - Supported Release 2.2.0
+###Summary
+
+This release includes a few bugfixes.
+
+####Features
+- Adds an `ensure` parameter for user control of proxy presence.
+- Adds ability to set `notify_update` to `apt::conf` (MODULES-2269).
+- Apt pins no longer trigger an `apt-get update` run.
+- Adds support for creating pins from main class.
+
+####Bugfixes
+- Updates to use the official Debian mirrors.
+- Fixes path to `preferences` and `preferences.d`
+- Fixes pinning for backports (MODULES-2446).
+- Fixes the name/extension of the preferences files.
+
+##2015-07-28 - Supported Release 2.1.1
+###Summary
+
+This release includes a few bugfixes.
+
+####Bugfixes
+- Fix incorrect use of anchoring (MODULES-2190)
+- Use correct comment type for apt.conf files
+- Test fixes
+- Documentation fixes
+
 ##2015-06-16 - Supported Release 2.1.0
 ###Summary
 

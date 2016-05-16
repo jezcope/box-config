@@ -3,16 +3,16 @@ describe 'apt' do
   let(:facts) { { :lsbdistid => 'Debian', :osfamily => 'Debian', :lsbdistcodename => 'wheezy', :puppetversion   => Puppet.version} }
 
   context 'defaults' do
-    it { is_expected.to contain_file('sources.list').that_notifies('Exec[apt_update]').only_with({
+    it { is_expected.to contain_file('sources.list').that_notifies('Class[Apt::Update]').only_with({
       :ensure  => 'file',
       :path    => '/etc/apt/sources.list',
       :owner   => 'root',
       :group   => 'root',
       :mode    => '0644',
-      :notify  => 'Exec[apt_update]',
+      :notify  => 'Class[Apt::Update]',
     })}
 
-    it { is_expected.to contain_file('sources.list.d').that_notifies('Exec[apt_update]').only_with({
+    it { is_expected.to contain_file('sources.list.d').that_notifies('Class[Apt::Update]').only_with({
       :ensure  => 'directory',
       :path    => '/etc/apt/sources.list.d',
       :owner   => 'root',
@@ -20,19 +20,19 @@ describe 'apt' do
       :mode    => '0644',
       :purge   => false,
       :recurse => false,
-      :notify  => 'Exec[apt_update]',
+      :notify  => 'Class[Apt::Update]',
     })}
 
-    it { is_expected.to contain_file('preferences').that_notifies('Exec[apt_update]').only_with({
+    it { is_expected.to contain_file('preferences').that_notifies('Class[Apt::Update]').only_with({
       :ensure  => 'file',
       :path    => '/etc/apt/preferences',
       :owner   => 'root',
       :group   => 'root',
       :mode    => '0644',
-      :notify  => 'Exec[apt_update]',
+      :notify  => 'Class[Apt::Update]',
     })}
 
-    it { is_expected.to contain_file('preferences.d').that_notifies('Exec[apt_update]').only_with({
+    it { is_expected.to contain_file('preferences.d').that_notifies('Class[Apt::Update]').only_with({
       :ensure  => 'directory',
       :path    => '/etc/apt/preferences.d',
       :owner   => 'root',
@@ -40,7 +40,7 @@ describe 'apt' do
       :mode    => '0644',
       :purge   => false,
       :recurse => false,
-      :notify  => 'Exec[apt_update]',
+      :notify  => 'Class[Apt::Update]',
     })}
 
     it 'should lay down /etc/apt/apt.conf.d/15update-stamp' do
@@ -90,6 +90,14 @@ describe 'apt' do
       ).with_content(
         /Acquire::https::proxy "https:\/\/localhost:8080\/";/
       )}
+    end
+
+    context 'ensure=absent' do
+      let(:params) { { :proxy => { 'ensure' => 'absent'} } }
+      it { is_expected.to contain_apt__setting('conf-proxy').with({
+        :ensure   => 'absent',
+        :priority => '01',
+      })}
     end
   end
   context 'lots of non-defaults' do
@@ -200,6 +208,7 @@ describe 'apt' do
       { :osfamily        => 'Debian',
         :lsbdistcodename => 'precise',
         :lsbdistid       => 'ubuntu',
+        :lsbdistrelease  => '12.04',
         :puppetversion   => Puppet.version,
       }
     end
@@ -227,6 +236,23 @@ describe 'apt' do
 
     it { is_expected.to contain_apt__setting('conf-banana')}
     it { is_expected.to contain_apt__setting('pref-banana')}
+  end
+
+  context 'with pins defined on valid osfamily' do
+    let :facts do
+      { :osfamily        => 'Debian',
+        :lsbdistcodename => 'precise',
+        :lsbdistid       => 'Debian',
+        :puppetversion   => Puppet.version,
+      }
+    end
+    let(:params) { { :pins => {
+      'stable' => { 'priority' => 600, 'order' => 50 },
+      'testing' =>  { 'priority' => 700, 'order' => 100 },
+    } } }
+
+    it { is_expected.to contain_apt__pin('stable') }
+    it { is_expected.to contain_apt__pin('testing') }
   end
 
   describe 'failing tests' do

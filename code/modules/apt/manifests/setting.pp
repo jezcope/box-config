@@ -37,7 +37,7 @@ define apt::setting (
     validate_string($content)
   }
 
-  if $setting_type == 'list' {
+  if ($setting_type == 'list') or ($setting_type == 'pref') {
     $_priority = ''
   } else {
     $_priority = $priority
@@ -47,7 +47,7 @@ define apt::setting (
   $_ext  = $::apt::params::config_files[$setting_type]['ext']
 
   if $notify_update {
-    $_notify = Exec['apt_update']
+    $_notify = Class['apt::update']
   } else {
     $_notify = undef
   }

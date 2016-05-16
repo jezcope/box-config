@@ -70,6 +70,8 @@ describe 'apt::source' do
       }).with_content(/hello.there wheezy main\n/)
       }
 
+      it { is_expected.to contain_file('/etc/apt/sources.list.d/my_source.list').that_notifies('Class[Apt::Update]')}
+
       it { is_expected.to contain_apt__pin('my_source').that_comes_before('Apt::Setting[list-my_source]').with({
         :ensure       => 'present',
         :priority     => 1001,
@@ -225,7 +227,7 @@ describe 'apt::source' do
 
     it { is_expected.to contain_apt__setting('list-my_source').with({
       :ensure => 'present',
-    }).with_content(/# my_source\ndeb-src \[arch=x86_64 \] hello.there wheezy main\n/)
+    }).with_content(/# my_source\ndeb-src \[arch=x86_64\] hello.there wheezy main\n/)
     }
   end
 

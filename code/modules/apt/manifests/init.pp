@@ -6,6 +6,7 @@ class apt(
   $sources  = {},
   $keys     = {},
   $ppas     = {},
+  $pins     = {},
   $settings = {},
 ) inherits ::apt::params {
 
@@ -26,7 +27,7 @@ class apt(
   }
 
   $_update = merge($::apt::update_defaults, $update)
-  include apt::update
+  include ::apt::update
 
   validate_hash($purge)
   if $purge['sources.list'] {
@@ -45,6 +46,9 @@ class apt(
   $_purge = merge($::apt::purge_defaults, $purge)
 
   validate_hash($proxy)
+  if $proxy['ensure'] {
+    validate_re($proxy['ensure'], ['file', 'present', 'absent'])
+  }
   if $proxy['host'] {
     validate_string($proxy['host'])
   }
@@ -63,11 +67,13 @@ class apt(
   validate_hash($keys)
   validate_hash($settings)
   validate_hash($ppas)
+  validate_hash($pins)
 
-  if $proxy['host'] {
+  if $_proxy['ensure'] == 'absent' or $_proxy['host'] {
     apt::setting { 'conf-proxy':
+      ensure   => $_proxy['ensure'],
       priority => '01',
-      content  => template('apt/_header.erb', 'apt/proxy.erb'),
+      content  => template('apt/_conf_header.erb', 'apt/proxy.erb'),
     }
   }
 
@@ -89,7 +95,7 @@ class apt(
 
   apt::setting { 'conf-update-stamp':
     priority => 15,
-    content  => template('apt/_header.erb', 'apt/15update-stamp.erb'),
+    content  => template('apt/_conf_header.erb', 'apt/15update-stamp.erb'),
   }
 
   file { 'sources.list':
@@ -99,7 +105,7 @@ class apt(
     group   => root,
     mode    => '0644',
     content => $sources_list_content,
-    notify  => Exec['apt_update'],
+    notify  => Class['apt::update'],
   }
 
   file { 'sources.list.d':
@@ -110,7 +116,7 @@ class apt(
     mode    => '0644',
     purge   => $_purge['sources.list.d'],
     recurse => $_purge['sources.list.d'],
-    notify  => Exec['apt_update'],
+    notify  => Class['apt::update'],
   }
 
   file { 'preferences':
@@ -119,7 +125,7 @@ class apt(
     owner  => root,
     group  => root,
     mode   => '0644',
-    notify => Exec['apt_update'],
+    notify => Class['apt::update'],
   }
 
   file { 'preferences.d':
@@ -130,10 +136,8 @@ class apt(
     mode    => '0644',
     purge   => $_purge['preferences.d'],
     recurse => $_purge['preferences.d'],
-    notify  => Exec['apt_update'],
+    notify  => Class['apt::update'],
   }
-
-  anchor { 'apt_first': } -> Class['apt::update'] -> anchor { 'apt_last': }
 
   # manage sources if present
   if $sources {
@@ -150,5 +154,10 @@ class apt(
   # manage settings if present
   if $settings {
     create_resources('apt::setting', $settings)
+  }
+
+  # manage pins if present
+  if $pins {
+    create_resources('apt::pin', $pins)
   }
 }
