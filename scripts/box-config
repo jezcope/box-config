@@ -12,8 +12,9 @@ function install_puppet {
   if which apt-get &>/dev/null ; then
       (
           cd /tmp
-          wget http://apt.puppetlabs.com/puppetlabs-release-pc1-utopic.deb
-          dpkg -i puppetlabs-release-pc1-utopic.deb
+          distname=$(lsb_release -cs)
+          wget "http://apt.puppetlabs.com/puppetlabs-release-pc1-${distname}.deb"
+          dpkg -i "puppetlabs-release-pc1-${distname}.deb"
       )
 
       apt-get update

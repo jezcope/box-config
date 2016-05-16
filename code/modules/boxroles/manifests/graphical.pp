@@ -49,27 +49,5 @@ class boxroles::graphical {
       ensure => present;
   }
 
-  file { '/opt/lplinux':
-    ensure => directory;
-  }
-
-  exec {
-    default:
-      path => '/bin:/usr/bin';
-    'fetch lastpass binary bundle':
-      command => 'wget -O /opt/lplinux.tar.bz2 "https://lastpass.com/lplinux.tar.bz2"',
-      creates => '/opt/lplinux.tar.bz2';
-    'extract lastpass binary bundle':
-      command => 'tar -xf /opt/lplinux.tar.bz2 -C /opt/lplinux',
-      creates => '/opt/lplinux/install_lastpass.sh',
-      require => [Package['unzip'], File['/opt/lplinux'], Exec['fetch lastpass binary bundle']],
-      before => Exec['install lastpass binary bundle'];
-    'install lastpass binary bundle':
-      command => '/opt/lplinux/install_lastpass.sh',
-      user => $box_username,
-      creates => "$box_homedir/.config/chromium/NativeMessagingHosts/",
-      require => Exec['extract lastpass binary bundle'];
-  }
-
 }
 

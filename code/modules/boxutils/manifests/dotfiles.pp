@@ -36,7 +36,8 @@ class boxutils::dotfiles {
   }
 
   [".gnupg", "bin", ".config", ".config/awesome",
-    ".config/systemd", ".config/systemd/user"].each |String $dir| {
+   ".config/systemd", ".config/systemd/user",
+   ".local", ".local/share", ".local/share/applications"].each |String $dir| {
     file { "$box_homedir/$dir":
       ensure => directory,
       force => true,
