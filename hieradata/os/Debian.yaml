@@ -24,3 +24,4 @@ packages:
   gnutls: gnutls-bin
   xbacklight: xbacklight
   mysql: [mysql-client, mysql-server, libmysqlclient-dev]
+  pdf-tools-prerequisites: [libpng-dev, libz-dev, libpoppler-glib-dev, libpoppler-private-dev]

@@ -45,6 +45,7 @@ class boxroles::graphical {
      'caja', 'atril',
      'hexchat',
      'linssid',
+     $p[pdf-tools-prerequisites],
      ]:
       ensure => present;
   }
