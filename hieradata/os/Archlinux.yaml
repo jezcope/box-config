@@ -24,3 +24,4 @@ packages:
   gnutls: gnutls
   xbacklight: xorg-xbacklight
   mysql: [mariadb, mariadb-clients, libmariadbclient]
+  pdf-tools-prerequisites: [libpng, zlib, poppler, poppler-glib]
