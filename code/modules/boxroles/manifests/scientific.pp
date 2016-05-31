@@ -4,7 +4,7 @@ class boxroles::scientific {
     include apt
 
     apt::source { 'r':
-      location => 'https://mirrors.ebi.ac.uk/CRAN/bin/linux/ubuntu',
+      location => 'https://cran.r-project.org/bin/linux/ubuntu',
       release => "$lsbdistcodename/",
       repos => '',
       key => {
