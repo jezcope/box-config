@@ -3,13 +3,22 @@ class boxroles::graphical {
   if $::osfamily == "Debian" {
     include apt
 
-    apt::source { 'partner':
-        location => 'http://archive.canonical.com/',
-        repos => 'partner',
+
+    if $::os[name] == "Ubuntu" {
+        apt::source { 'partner':
+            location => 'http://archive.canonical.com/',
+            repos => 'partner',
+        }
+    }
+    else {
+        file { '/etc/apt/sources.list.d/partner.list':
+            ensure => absent,
+            notify => Exec['apt_update'],
+        }
     }
 
     apt::source { 'dropbox':
-        location => 'http://linux.dropbox.com/ubuntu',
+        location => "http://linux.dropbox.com/${downcase($::os[name])}",
         repos => 'main',
         key => {
         id => '1C61A2656FB57B7E4DE0F4C1FC918B335044912E',
