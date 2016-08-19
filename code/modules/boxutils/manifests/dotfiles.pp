@@ -20,7 +20,6 @@ class boxutils::dotfiles {
     'applications/org-protocol.desktop' => '.local/share/applications/org-protocol.desktop',
   }
   $systemd_units = [
-    'gpg-agent.service',
   ]
 
   File {
