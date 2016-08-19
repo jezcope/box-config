@@ -14,7 +14,6 @@ packages:
   rvm-required: []
   chromium: chromium
   libreoffice: [libreoffice-fresh, libreoffice-fresh-en-GB]
-  xscreensaver: xscreensaver
   unison: unison
   emacs: emacs
   mu4e: mu

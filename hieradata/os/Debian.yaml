@@ -14,7 +14,6 @@ packages:
   rvm-required: [gawk, libreadline6-dev, zlib1g-dev, libssl-dev, libyaml-dev, libsqlite3-dev, sqlite3, libgdbm-dev, libncurses5-dev, libtool, bison, pkg-config, libffi-dev]
   chromium: chromium-browser
   libreoffice: [libreoffice, libreoffice-gtk]
-  xscreensaver: [xscreensaver, xscreensaver-gl, xscreensaver-gl-extra]
   unison: unison-gtk
   emacs: emacs24
   mu4e: [mu4e, maildir-utils-extra]
