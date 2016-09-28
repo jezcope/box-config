@@ -21,6 +21,10 @@ class boxroles::scientific {
 
   $p = hiera('packages')
 
-  package { [$p['r'], 'julia']: }
+  package { [
+    $p['r'],
+    'julia',
+    'hdf5-helpers', 'hdf5-tools', hdfview,
+  ]: }
 
 }
