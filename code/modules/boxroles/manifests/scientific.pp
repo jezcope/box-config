@@ -1,6 +1,6 @@
 class boxroles::scientific {
 
-  if $::osfamily == "Debian" {
+  if $::os[name] == "Ubuntu" {
     include apt
 
     apt::source { 'r':
@@ -13,6 +13,10 @@ class boxroles::scientific {
       },
     }
 
+  } else {
+    file { '/etc/apt/sources.list.d/r.list':
+      ensure => absent,
+    }
   }
 
   $p = hiera('packages')
